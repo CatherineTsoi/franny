@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Do you love me? 💛</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: sans-serif;
+      background: #fffde7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .gif {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      border-radius: 16px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+    .btns {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #yes-btn {
+      background: #e8667a;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 32px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s, font-size 0.2s;
+    }
+    #yes-btn:hover {
+      background: #d4546a;
+      transform: scale(1.05);
+    }
+    #no-btn {
+      background: transparent;
+      color: #888;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 12px 32px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    #response {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="question-view">
+    <img class="gif" src="https://media1.tenor.com/m/UGR8LpsMxS4AAAAd/minions-bob.gif" alt="cute dancing character" />
+    <h1>Do you love me? 🩵</h1>
+    <div class="btns">
+      <button id="yes-btn" onclick="sayYes()">Yes 🩵</button>
+      <button id="no-btn" onmouseover="growYes()" ontouchstart="growYes()">No</button>
+    </div>
+  </div>
+  <div id="response">
+    <img class="gif" id="resp-gif" src="" alt="happy reaction" />
+    <h1 id="resp-text"></h1>
+  </div>
+</div>
+<script>
+  let noCount = 0;
+  const yesBtn = document.getElementById('yes-btn');
+  const noBtn  = document.getElementById('no-btn');
+  const noResponses = [
+    "are you sure? 🥺",
+    "pookieeee 😭",
+    "my loveee? 💔",
+    "timmy staring 😢",
+    "wifey sadge 🥺"
+  ];
+  function growYes() {
+    noCount++;
+    const currentSize = parseFloat(getComputedStyle(yesBtn).fontSize);
+    yesBtn.style.fontSize = Math.min(currentSize + 4, 36) + 'px';
+    if (noCount <= noResponses.length) {
+      noBtn.textContent = noResponses[noCount - 1];
+    }
+    if (noCount >= 5) {
+      noBtn.style.opacity = '0.3';
+      noBtn.style.pointerEvents = 'none';
+    }
+  }
+  function sayYes() {
+    document.getElementById('question-view').style.display = 'none';
+    const resp = document.getElementById('response');
+    resp.style.display = 'flex';
+    document.getElementById('resp-gif').src = 'https://media1.tenor.com/m/UGR8LpsMxS4AAAAd/minions-bob.gif';
+    document.getElementById('resp-text').textContent = 'I knew it! I love you too 🩵';
+  }
+</script>
+</body>
+</html>
